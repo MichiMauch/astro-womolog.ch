@@ -1,0 +1,17 @@
+---
+    const { place } = Astro.props; // Nehme die "place"-Prop entgegen
+---
+
+<div class="camp-card">
+    <h2>{place}</h2> <!-- Zeige den Ort an -->
+</div>
+
+<style>
+    .camp-card {
+        padding: 1rem;
+        margin: 1rem 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+</style>

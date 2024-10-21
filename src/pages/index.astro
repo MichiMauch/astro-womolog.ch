@@ -1,16 +1,20 @@
 ---
+	import { getSheetData } from '../lib/sheetService'; // Importiere die Datenabruf-Funktion
+	import CampCard from '../components/CampCard.astro'; // Importiere deine CampCard-Komponente
+	import MainLayout from '../layouts/MainLayout.astro';
 
+	const sheetData = await getSheetData(); // Rufe die Daten von der API ab
+
+	// Extrahiere nur die Orte aus den Daten (angenommen, sie sind in der ersten Spalte)
+	const places = sheetData.map(row => row[0]); // Beispiel: Hol dir nur die Orte
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout>
+	<h1>Unsere Wohnmobil-Standorte</h1>
+
+	<section>
+		{places.map(place => (
+		<CampCard place={place} />
+		))}
+	</section>
+</MainLayout>
