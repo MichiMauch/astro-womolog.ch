@@ -9,12 +9,12 @@
 	const places = sheetData.map(row => row[0]); // Beispiel: Hol dir nur die Orte
 ---
 
-<MainLayout>
-	<h1>Unsere Wohnmobil-Standorte</h1>
-
-	<section>
-		{places.map(place => (
-		<CampCard place={place} />
-		))}
-	</section>
-</MainLayout>
+	<MainLayout>
+		<h1>Unsere Wohnmobil-Standorte</h1>
+	
+		<section>
+			{places.map(place => (
+			<CampCard place={place} />
+			))}
+		</section>
+	</MainLayout>
