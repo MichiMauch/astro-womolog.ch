@@ -11,26 +11,32 @@
 <script>
     // Weise die Funktion dem globalen `window`-Objekt zu
     window.filterCards = function () {
-        const searchInput = document.getElementById('search-input').value.toLowerCase();
-        const cards = document.querySelectorAll('.camp-card');
-        let visibleCount = 0;  // Zähle die sichtbaren Karten
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) {
+            const searchValue = searchInput.value.toLowerCase();
+            const cards = document.querySelectorAll('.camp-card');
+            let visibleCount = 0;
 
-        cards.forEach(card => {
-            const title = card.querySelector('h2').textContent.toLowerCase();
-            if (title.includes(searchInput)) {
-                card.style.display = 'block';
-                visibleCount++; // Zähle die sichtbaren Karten
-            } else {
-                card.style.display = 'none';
+            cards.forEach(card => {
+                const title = card.querySelector('h2')?.textContent?.toLowerCase() || '';
+                if (title.includes(searchValue)) {
+                    card.style.display = 'block';
+                    visibleCount++; // Zähle die sichtbaren Karten
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Aktualisiere die Anzahl der Treffer
+            const resultCount = document.getElementById('result-count');
+            if (resultCount) {
+                resultCount.textContent = visibleCount.toString();
             }
-        });
-
-        // Aktualisiere die Anzahl der Treffer
-        document.getElementById('result-count').textContent = visibleCount;
+        }
     };
 
     // Initialisiere die Trefferanzahl beim Laden der Seite
     window.addEventListener('DOMContentLoaded', () => {
-        filterCards(); // Rufe die Funktion auf, um direkt die Anzahl der Karten anzuzeigen
+        window.filterCards();
     });
 </script>
