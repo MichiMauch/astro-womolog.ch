@@ -18,12 +18,15 @@
             let visibleCount = 0;
 
             cards.forEach(card => {
-                const title = card.querySelector('h2')?.textContent?.toLowerCase() || '';
-                if (title.includes(searchValue)) {
-                    card.style.display = 'block';
-                    visibleCount++; // Zähle die sichtbaren Karten
-                } else {
-                    card.style.display = 'none';
+                // Überprüfe, ob das Element ein HTMLElement ist
+                if (card instanceof HTMLElement) {
+                    const title = card.querySelector('h2')?.textContent?.toLowerCase() || '';
+                    if (title.includes(searchValue)) {
+                        card.style.display = 'block';
+                        visibleCount++; // Zähle die sichtbaren Karten
+                    } else {
+                        card.style.display = 'none';
+                    }
                 }
             });
 
