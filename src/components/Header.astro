@@ -12,7 +12,9 @@
     // Weise die Funktion dem globalen `window`-Objekt zu
     window.filterCards = function () {
         const searchInput = document.getElementById('search-input');
-        if (searchInput) {
+
+        // Überprüfe, ob es sich um ein HTMLInputElement handelt
+        if (searchInput instanceof HTMLInputElement) {
             const searchValue = searchInput.value.toLowerCase();
             const cards = document.querySelectorAll('.camp-card');
             let visibleCount = 0;
