@@ -1,10 +1,22 @@
 ---
-    const { place, location } = Astro.props; // Nehme die "place"-Prop entgegen
+    const { place, location, datefrom, dateto, image, latitude, longitude, country, countrycodeshort, countrycodelong } = Astro.props; // Nehme alle Props entgegen
+
+    // Baue die vollständige Bild-URL zusammen
+    const imageUrl = `https://pub-7b46ce1a4c0f4ff6ad2ed74d56e2128a.r2.dev/${image}.webp`;
 ---
 
-<div class="camp-card">
-    <h2>{place}, {location}</h2> <!-- Zeige den Ort an -->
+<div class="camp-card" data-country={country}>
+    <!-- Füge das Land als Attribut hinzu -->
+    <img src={imageUrl} alt={`Bild von ${place}`} width="200" height="200" loading="lazy" />
 
+    <h2>{place}, {location}, {image}</h2> <!-- Zeige den Ort an -->
+
+    <p>
+        Von: {datefrom}, Bis: {dateto},
+        Land: {country} ({countrycodeshort}),
+        Koordinaten: {latitude}, {longitude},
+        Ländercode lang: {countrycodelong}
+    </p>
 </div>
 
 <style>
@@ -14,5 +26,14 @@
         border: 1px solid #ccc;
         border-radius: 8px;
         background-color: #f9f9f9;
+    }
+
+    .camp-card img {
+        display: block;
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        /* Stellt sicher, dass das Bild korrekt skaliert wird */
+        margin-bottom: 1rem;
     }
 </style>

@@ -1,10 +1,28 @@
+---
+    import { getSheetData } from '../lib/sheetService'; // Importiere die Datenabruf-Funktion
+
+    const sheetData = await getSheetData(); // Rufe die Daten von der API ab
+
+    // Extrahiere die verschiedenen Länder aus den Daten
+    const countries = [...new Set(sheetData.map(row => row[7]))]; // Land ist in der 7. Spalte
+---
+
 <header>
     <h1>Womolog</h1>
     <nav>
         <a href="/">Startseite</a>
         <a href="/stats/">Stats</a>
     </nav>
+
     <input type="text" id="search-input" placeholder="Suche nach Titel" oninput="filterCards()" />
+
+    <select id="country-filter" onchange="filterCards()">
+        <option value="">Alle Länder</option>
+        {countries.map(country => (
+        <option value={country}>{country}</option>
+        ))}
+    </select>
+
     <p>Treffer: <span id="result-count">0</span></p> <!-- Anzeige der Anzahl Treffer -->
 </header>
 
@@ -12,20 +30,26 @@
     // Weise die Funktion dem globalen `window`-Objekt zu
     window.filterCards = function () {
         const searchInput = document.getElementById('search-input');
+        const countryFilter = document.getElementById('country-filter');
 
-        // Überprüfe, ob es sich um ein HTMLInputElement handelt
-        if (searchInput instanceof HTMLInputElement) {
+        if (searchInput instanceof HTMLInputElement && countryFilter instanceof HTMLSelectElement) {
             const searchValue = searchInput.value.toLowerCase();
+            const selectedCountry = countryFilter.value.toLowerCase(); // Kleinbuchstaben zum Vergleich
             const cards = document.querySelectorAll('.camp-card');
             let visibleCount = 0;
 
             cards.forEach(card => {
-                // Überprüfe, ob das Element ein HTMLElement ist
                 if (card instanceof HTMLElement) {
                     const title = card.querySelector('h2')?.textContent?.toLowerCase() || '';
-                    if (title.includes(searchValue)) {
+                    const cardCountry = card.getAttribute('data-country')?.toLowerCase() || ''; // Hol das Land von data-country
+
+                    // Überprüfe, ob das Land übereinstimmt oder keins ausgewählt ist
+                    const matchesCountry = selectedCountry === '' || cardCountry === selectedCountry;
+
+                    // Filtere sowohl nach Titel als auch nach Land
+                    if (title.includes(searchValue) && matchesCountry) {
                         card.style.display = 'block';
-                        visibleCount++; // Zähle die sichtbaren Karten
+                        visibleCount++;
                     } else {
                         card.style.display = 'none';
                     }

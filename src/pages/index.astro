@@ -5,11 +5,18 @@
 
 	const sheetData = await getSheetData(); // Rufe die Daten von der API ab
 
-	// sheetData wird als Array von Arrays zurückgegeben, wobei jede Zeile ein Array ist
-	// Nimm an, dass der Titel in der ersten Spalte und der Ort in der zweiten Spalte ist
+	// Extrahiere die notwendigen Felder aus den Sheet-Daten
 	const placesWithLocations = sheetData.map(row => ({
-		place: row[0],  // Titel in der ersten Spalte
-		location: row[1],  // Ort in der zweiten Spalte
+		place: row[0],  // Titel
+		location: row[1],  // Ort
+		datefrom: row[2],  // Datum von
+		dateto: row[3],  // Datum bis
+		image: row[4],  // Teaserbild
+		latitude: row[5],  // Latitude
+		longitude: row[6],  // Longitude
+		country: row[7],  // Land
+		countrycodeshort: row[8],  // Ländercode kurz
+		countrycodelong: row[9],  // Ländercode lang
 	}));
 ---
 
@@ -17,8 +24,11 @@
 	<h1>Unsere Wohnmobil-Standorte</h1>
 
 	<section>
-		{placesWithLocations.map(({ place, location }) => (
-		<CampCard place={place} location={location} />
+		{placesWithLocations.map(({ place, location, datefrom, dateto, image, latitude, longitude, country,
+		countrycodeshort, countrycodelong }) => (
+		<CampCard place={place} location={location} datefrom={datefrom} dateto={dateto} image={image}
+			latitude={latitude} longitude={longitude} country={country} countrycodeshort={countrycodeshort}
+			countrycodelong={countrycodelong} />
 		))}
 	</section>
 </MainLayout>
