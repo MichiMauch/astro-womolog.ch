@@ -5,16 +5,20 @@
 
 	const sheetData = await getSheetData(); // Rufe die Daten von der API ab
 
-	// Extrahiere nur die Orte aus den Daten (angenommen, sie sind in der ersten Spalte)
-	const places = sheetData.map(row => row[0]); // Beispiel: Hol dir nur die Orte
+	// sheetData wird als Array von Arrays zurückgegeben, wobei jede Zeile ein Array ist
+	// Nimm an, dass der Titel in der ersten Spalte und der Ort in der zweiten Spalte ist
+	const placesWithLocations = sheetData.map(row => ({
+		place: row[0],  // Titel in der ersten Spalte
+		location: row[1],  // Ort in der zweiten Spalte
+	}));
 ---
 
-	<MainLayout>
-		<h1>Unsere Wohnmobil-Standorte</h1>
-	
-		<section>
-			{places.map(place => (
-			<CampCard place={place} />
-			))}
-		</section>
-	</MainLayout>
+<MainLayout>
+	<h1>Unsere Wohnmobil-Standorte</h1>
+
+	<section>
+		{placesWithLocations.map(({ place, location }) => (
+		<CampCard place={place} location={location} />
+		))}
+	</section>
+</MainLayout>

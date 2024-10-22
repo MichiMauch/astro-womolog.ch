@@ -2,7 +2,7 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "module": "esnext",
-    "moduleResolution": "node",  // Diese Zeile sicherstellen
+    "moduleResolution": "node",  // Gültiger Wert
     "target": "esnext",
     "jsx": "preserve",
     "esModuleInterop": true,

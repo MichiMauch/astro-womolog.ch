@@ -2,6 +2,35 @@
     <h1>Womolog</h1>
     <nav>
         <a href="/">Startseite</a>
-        <a href="/stats/">stats</a>
+        <a href="/stats/">Stats</a>
     </nav>
+    <input type="text" id="search-input" placeholder="Suche nach Titel" oninput="filterCards()" />
+    <p>Treffer: <span id="result-count">0</span></p> <!-- Anzeige der Anzahl Treffer -->
 </header>
+
+<script>
+    // Weise die Funktion dem globalen `window`-Objekt zu
+    window.filterCards = function () {
+        const searchInput = document.getElementById('search-input').value.toLowerCase();
+        const cards = document.querySelectorAll('.camp-card');
+        let visibleCount = 0;  // Zähle die sichtbaren Karten
+
+        cards.forEach(card => {
+            const title = card.querySelector('h2').textContent.toLowerCase();
+            if (title.includes(searchInput)) {
+                card.style.display = 'block';
+                visibleCount++; // Zähle die sichtbaren Karten
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        // Aktualisiere die Anzahl der Treffer
+        document.getElementById('result-count').textContent = visibleCount;
+    };
+
+    // Initialisiere die Trefferanzahl beim Laden der Seite
+    window.addEventListener('DOMContentLoaded', () => {
+        filterCards(); // Rufe die Funktion auf, um direkt die Anzahl der Karten anzuzeigen
+    });
+</script>

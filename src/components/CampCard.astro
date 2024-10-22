@@ -1,9 +1,10 @@
 ---
-    const { place } = Astro.props; // Nehme die "place"-Prop entgegen
+    const { place, location } = Astro.props; // Nehme die "place"-Prop entgegen
 ---
 
 <div class="camp-card">
-    <h2>{place}</h2> <!-- Zeige den Ort an -->
+    <h2>{place}, {location}</h2> <!-- Zeige den Ort an -->
+
 </div>
 
 <style>
